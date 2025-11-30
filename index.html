@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人主页</title>
+    <style>
+        /* --- 1. 全局变量与重置 (Apple Style Base) --- */
+        :root {
+            --bg-color: #fbfbfd; /* Apple 经典的灰白色背景 */
+            --text-main: #1d1d1f; /* 近似黑色的深灰 */
+            --text-sub: #86868b;  /* 辅助灰色 */
+            --accent-color: #0071e3; /* Apple 蓝 */
+            --nav-bg: rgba(251, 251, 253, 0.8);
+            --transition-curve: cubic-bezier(0.25, 0.1, 0.25, 1); /* 平滑动画曲线 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased; /* 文字抗锯齿 */
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.3s; }
+        ul { list-style: none; }
+
+        /* --- 2. 导航栏 (Glassmorphism) --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 48px;
+            background: var(--nav-bg);
+            backdrop-filter: saturate(180%) blur(20px); /* 核心：毛玻璃效果 */
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        nav a {
+            color: var(--text-main);
+            opacity: 0.8;
+        }
+
+        nav a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        /* --- 3. 通用布局 --- */
+        section {
+            padding: 150px 20px;
+            max-width: 980px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* --- 4. 动画类 (Scroll Reveal) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px); /* 初始位置向下偏移 */
+            transition: all 1s var(--transition-curve);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 5. Hero 区域 (首屏) --- */
+        .hero {
+            height: 100vh; /* 全屏高度 */
+            justify-content: center;
+            padding-top: 0;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 10px;
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--text-sub);
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 980px; /* 圆角胶囊 */
+            font-size: 14px;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- 6. 内容区块风格 --- */
+        .section-title {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 60px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 2px 4px 12px rgba(0,0,0,0.04);
+            transition: transform 0.4s var(--transition-curve);
+            text-align: left;
+        }
+
+        .card:hover {
+            transform: scale(1.02); /* 悬停微放大 */
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--text-sub);
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* --- 7. 页脚 --- */
+        footer {
+            background: #f5f5f7;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+
+        /* --- 移动端适配 --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 40px; }
+            .hero h2 { font-size: 22px; }
+            section { padding: 80px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 首屏 Hero -->
+    <section id="home" class="hero">
+        <div class="reveal">
+            <h1>你好，我是 [你的名字]</h1>
+            <h2>创造简洁、直观的数字体验。</h2>
+            <a href="#projects" class="cta-button">查看我的作品</a>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about">
+        <div class="reveal">
+            <h2 class="section-title">Less is More.</h2>
+            <p style="font-size: 21px; max-width: 700px; color: var(--text-sub);">
+                我是一名热爱极简主义设计的开发者。我相信好的设计应该是隐形的，专注于内容本身。在这里，你可以看到我对美学与代码的探索。
+            </p>
+        </div>
+    </section>
+
+    <!-- 项目展示 -->
+    <section id="projects">
+        <h2 class="section-title reveal">精选项目</h2>
+        <div class="grid">
+            <!-- 项目卡片 1 -->
+            <div class="card reveal">
+                <h3>Project Alpha</h3>
+                <p>这是一个专注于提升效率的工具。采用了最新的 Web 技术栈，拥有丝滑的交互体验。</p>
+            </div>
+            <!-- 项目卡片 2 -->
+            <div class="card reveal">
+                <h3>Design System</h3>
+                <p>一套完整的 UI 设计语言，涵盖了色彩、排版和组件库，确保视觉的一致性。</p>
+            </div>
+            <!-- 项目卡片 3 -->
+            <div class="card reveal">
+                <h3>Open Source</h3>
+                <p>我热衷于开源社区，贡献了多个实用的脚本和插件，帮助他人解决问题。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact">
+        <div class="reveal">
+            <h2 class="section-title">保持联系</h2>
+            <p style="font-size: 19px; color: var(--text-sub); margin-bottom: 30px;">
+                有有趣的想法？欢迎随时通过邮件与我联系。
+            </p>
+            <a href="mailto:your@email.com" class="cta-button" style="background: #1d1d1f;">发邮件给我</a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>Copyright © 2024 [你的名字]. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- JS 交互核心：Intersection Observer ---
+        // 这是一个现代 API，用于检测元素是否进入屏幕，实现类似 Apple 官网的“滚动即现”效果
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null, // 视口为根
+                threshold: 0.1, // 元素出现 10% 时触发
+                rootMargin: "0px" 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active'); // 添加 active 类触发 CSS 动画
+                        observer.unobserve(entry.target); // 动画只播放一次，播放完停止观察
+                    }
+                });
+            }, observerOptions);
+
+            // 获取所有带有 .reveal 类的元素并开始观察
+            const elements = document.querySelectorAll('.reveal');
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
